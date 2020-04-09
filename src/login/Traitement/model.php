@@ -10,7 +10,7 @@ function getConnexion()
 	$conn = new mysqli($servername, $username, $password, $data_base);
 
 	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+		die("Connection failed: " . $conn->connect_error);// affiche error 
 	}
 	return $conn;
 }
@@ -41,7 +41,6 @@ elseif ($_POST['submitconnx'] === 'Sign Up') {
 			$insert->bind_param('sssssis', $nom, $prenom, $password, $email, $adresse, $permis, $telephone);
 			$insert->execute();
 
-			//printf("%d ligne insérée.\n", $insert->affected_rows);
 
 			$insert->close();
 		}
@@ -69,7 +68,7 @@ elseif ($_POST['submitconnx'] === 'Sign up pro') {
 			$insert->bind_param('sssssissi', $nom, $prenom, $password, $email, $adresse, $permis, $telephone, $nom_societe, $siret);
 			$insert->execute();
 
-			//printf("%d ligne insérée.\n", $insert->affected_rows);
+		
 
 			$insert->close();
 		}
@@ -84,13 +83,14 @@ function test($email, $password)
 	$stat = $con->query("SELECT * FROM user where email='$email' and password='$password'");
 
 	if ($stat->num_rows > 0) {
-		while ($row = $stat->fetch_assoc()) {
+		while ($row = $stat->fetch_assoc()) {// Retourne un tableau associatif qui correspond à la ligne récupérée ou NULL s'il n'y a plus de ligne
+		{
 			session_start();
 			$_SESSION['user'] = $row['nom'];
 			$_SESSION['id'] = $row['iduser'];
 			header('Location:../../../index.php');
 		}
 	} else {
-		header('Location:../login.php?test=0');
+		header('Location:../login.php?test=0');//retourner a la page cnx 
 	}
 }
