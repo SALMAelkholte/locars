@@ -1,0 +1,116 @@
+body {
+    line-height: 1.8;
+    background-image: url(../img/header-bg.jpg);
+    font-family: poppins;
+    margin: 0px;
+}
+
+}
+
+#ajouter {
+    width: 70%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    text-align: left;
+    border: 1px dotted rgb(0, 87, 128);
+    background-color: azure;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+tr {
+    border-bottom: 1px solid #cbcbcb;
+}
+
+th {
+    height: 30px;
+    padding: 2px;
+    font-family: cursive;
+    font-weight: bold;
+    color: darkgoldenrod;
+    text-align: center;
+}
+
+td {
+    font-family: cursive;
+    border: none;
+    height: 30px;
+    padding: 2px;
+    text-align: center;
+    font-weight: bold;
+    color: #222;
+}
+
+tr:hover {
+    background: #F5F5F5;
+}
+
+.gestion {
+    font-family: cursive;
+    width: 45%;
+    margin: 50px auto;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid #bbbbbb;
+    border-radius: 10px;
+    background-color: azure;
+}
+
+.input-group {
+    margin: 10px 0px 10px 0px;
+}
+
+.input-group label {
+    display: block;
+    text-align: left;
+    margin: 3px;
+}
+
+.input-group input {
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.btn {
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #5F9EA0;
+    border: none;
+    border-radius: 5px;
+}
+
+.edit_btn {
+    text-decoration: none;
+    padding: 2px 5px;
+    background: #2E8B57;
+    color: white;
+    border-radius: 3px;
+}
+
+.del_btn {
+    text-decoration: none;
+    padding: 2px 5px;
+    color: white;
+    border-radius: 3px;
+    background: #800000;
+}
+
+.msg {
+    margin: 30px auto;
+    padding: 10px;
+    border-radius: 5px;
+    color: #3c763d;
+    background: #dff0d8;
+    border: 1px solid #3c763d;
+    width: 50%;
+    text-align: center;
+}
+
+.container.fullwidth {
+    width: 100%;
+}
