@@ -8,10 +8,10 @@ if ($nom == null) {
 }
 ?>
 
-<?php include('../gerer/connection.php'); ?>
-<?php include('../gerer/listing.php'); ?>
+<?php $db = mysqli_connect('localhost', 'root', 'root', 'locars'); ?>
 
 <?php
+// verifier si le formulaire du modification est rempli pour savoir s'il va executer la requete ou non
 if (isset($_GET['edit'])) {
 	$id = $_GET['edit'];
 	$update = true;
@@ -27,6 +27,8 @@ if (isset($_GET['edit'])) {
 		$matricule = $n['matricule'];
 		$boitev = $n['boite_vitesse'];
 		$ville = $n['ville'];
+        $nomv = $n['nomv'];
+        $kilometrage = $n['kilometrage'];
 		$image = $n['image_url'];
 	}
 }
@@ -46,9 +48,16 @@ if (isset($_GET['edit'])) {
 	<link rel="stylesheet" href="../outils/css/main.css">
 	<title>gestion</title>
     <style type="text/css">
-		.locars {
-			border-radius: 10px;
-		}
+.locars {
+    border-radius: 10px;
+        }
+   
+.gestion label{ 
+    color: darkgoldenrod;
+    font-weight: bold;}
+		
+       
+        
 	</style>
 </head>
 
@@ -93,26 +102,22 @@ if (isset($_GET['edit'])) {
 	</section>
 	<!-- End banner Area -->
 
-	<?php if (isset($_SESSION['message'])) : ?>
-		<div class="msg">
-			<?php
-			echo $_SESSION['message'];
-			unset($_SESSION['message']);
-			?>
-		</div>
+	
 
-	<?php endif ?>
+	
 	<?php $results = mysqli_query($db, "SELECT * FROM voiture where user_iduser = $id_user"); ?>
 
 	<div class="container" style="padding:10px; background-color: white; margin-top:10px;">
-		<table id="ajouter" class="table table-striped table-bordered">
+		<table id="ajouter" class="table table-striped table-bordered" >
 			<thead>
 				<tr>
 					<th>marque</th>
 					<th>model</th>
+                    <th>version</th>
 					<th>Dispo_debut</th>
 					<th>Dispo_fin</th>
 					<th>Prix Journalier</th>
+                    <th>Kilometrage</th>
 					<th>couleur</th>
 					<th>Matricule</th>
 					<th>boite vitesse</th>
@@ -126,9 +131,11 @@ if (isset($_GET['edit'])) {
 					<tr>
 						<td><?php echo $row['marque']; ?></td>
 						<td><?php echo $row['model']; ?></td>
+                        <td><?php echo $row['nomv']; ?></td>
 						<td><?php echo $row['dispo_debut']; ?></td>
 						<td><?php echo $row['dispo_fin']; ?></td>
 						<td><?php echo $row['prixj']; ?></td>
+                        <td><?php echo $row['kilometrage']; ?></td>
 						<td><?php echo $row['couleur']; ?></td>
 						<td><?php echo $row['matricule']; ?></td>
 						<td><?php echo $row['boite_vitesse']; ?></td>
@@ -145,9 +152,11 @@ if (isset($_GET['edit'])) {
 				<tr>
 					<th>marque</th>
 					<th>model</th>
+                    <th>version</th>
 					<th>Dispo_debut</th>
 					<th>Dispo_fin</th>
 					<th>Prix Journalier</th>
+                    <th>kilometrage</th>
 					<th>couleur</th>
 					<th>Matricule</th>
 					<th>boite vitesse</th>
@@ -168,10 +177,15 @@ if (isset($_GET['edit'])) {
 		</div>
 
 		<div class="input-group">
-			<label>Model</label>
+			<label>model</label>
 			<input type="text" name="model" value="<?php echo $model; ?>">
 		</div>
-
+        
+        <div class="input-group">
+			<label>version</label>
+			<input type="text" name="nomv" value="<?php echo $nomv; ?>">
+		</div>
+       
 		<div class="input-group">
 			<label>Dispo_debut</label>
 			<input type="date" name="dispo_debut" value="<?php echo $dispo_debut; ?>">
@@ -186,7 +200,13 @@ if (isset($_GET['edit'])) {
 			<label>Prix Journalier</label>
 			<input type="text" name="prixj" value="<?php echo $prixj; ?>">
 		</div>
-
+        
+        <div class="input-group">
+			<label>Kilometrage</label>
+			<input type="text" name="kilometrage" value="<?php echo $kilometrage; ?>">
+		</div>
+        
+        
 		<div class="input-group">
 			<label>couleur</label>
 			<input type="text" name="couleur" value="<?php echo $couleur; ?>">
@@ -203,7 +223,7 @@ if (isset($_GET['edit'])) {
 		</div>
 
 		<div class="input-group">
-			<label>ville .:</label>
+			<label>ville :</label>
 			<input type="text" name="ville" value="<?php echo $ville; ?>">
 		</div>
 
