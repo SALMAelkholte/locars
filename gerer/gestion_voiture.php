@@ -15,11 +15,9 @@ $user_iduser =  $_SESSION['id'];
 $idvoiture   =  $_POST['idvoiture'];
 $marque      =  $_POST['marque'];
 $model       =  $_POST['model'];
-$nomv        =  $_POST['nomv'];
 $dispo_debut =  $_POST['dispo_debut'];
 $dispo_fin   =  $_POST['dispo_fin'];
 $prixj       =  $_POST['prixj'];
-$kilometrage =  $_POST['kilometrage'];
 $couleur     =  $_POST['couleur'];
 $matricule   =  $_POST['matricule'];
 $boitev      =  $_POST['boitev'];
@@ -34,7 +32,7 @@ if ($_POST['valider'] === 'save') {
     if (!empty($idvoiture || $marque || $model || $image || $nomv || $kilometrage || $dispo_debut || $dispo_fin || $prixj || $couleur || $matricule || $boitev || $ville)) {
         $con = getConnexion();
 
-        $sql = "INSERT INTO voiture (user_iduser, marque, nomv, dispo_debut, dispo_fin, prixj, kilometrage, model, couleur, boite_vitesse, matricule, image_url, ville) VALUES ($user_iduser, '$marque', '$nomv', '$dispo_debut', '$dispo_fin', '$prixj', '$kilometrage', '$model', '$couleur', '$boitev', '$matricule', '$image', '$ville')";
+        $sql = "INSERT INTO voiture (user_iduser, marque, dispo_debut, dispo_fin, prixj, model, couleur, boite_vitesse, matricule, image_url, ville) VALUES ($user_iduser, '$marque', '$dispo_debut', '$dispo_fin', '$prixj', '$model', '$couleur', '$boitev', '$matricule', '$image', '$ville')";
 
         if ($con->query($sql) === TRUE) {
             header('Location:../src/gestion.php');
@@ -48,10 +46,10 @@ if ($_POST['valider'] === 'save') {
 //update
     
 } elseif ($_POST['valider'] === 'update') {
-    if (!empty($idvoiture || $marque || $model || $image || $nomv || $kilometrage || $dispo_debut || $dispo_fin || $prixj || $couleur || $matricule || $boitev || $ville)) {
+    if (!empty($idvoiture || $marque || $model || $image || $dispo_debut || $dispo_fin || $prixj || $couleur || $matricule || $boitev || $ville)) {
         $con = getConnexion();
 
-        $sql = "UPDATE voiture SET marque = '$marque', dispo_debut = '$dispo_debut', dispo_fin = '$dispo_fin', prixj = $prixj, model = '$model', couleur =  '$couleur', boite_vitesse = '$boitev', matricule = '$matricule', image_url = '$image', ville = '$ville', nomv = '$nomv', kilometrage = '$kilometrage' WHERE idvoiture=$idvoiture";
+        $sql = "UPDATE voiture SET marque = '$marque', dispo_debut = '$dispo_debut', dispo_fin = '$dispo_fin', prixj = $prixj, model = '$model', couleur =  '$couleur', boite_vitesse = '$boitev', matricule = '$matricule', image_url = '$image', ville = '$ville' WHERE idvoiture=$idvoiture";
 
         if ($con->query($sql) === TRUE) {
             header('Location:../src/gestion.php');

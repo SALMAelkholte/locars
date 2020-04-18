@@ -27,8 +27,6 @@ if (isset($_GET['edit'])) {
 		$matricule = $n['matricule'];
 		$boitev = $n['boite_vitesse'];
 		$ville = $n['ville'];
-        $nomv = $n['nomv'];
-        $kilometrage = $n['kilometrage'];
 		$image = $n['image_url'];
 	}
 }
@@ -113,11 +111,9 @@ if (isset($_GET['edit'])) {
 				<tr>
 					<th>marque</th>
 					<th>model</th>
-                    <th>version</th>
 					<th>Dispo_debut</th>
 					<th>Dispo_fin</th>
 					<th>Prix Journalier</th>
-                    <th>Kilometrage</th>
 					<th>couleur</th>
 					<th>Matricule</th>
 					<th>boite vitesse</th>
@@ -127,15 +123,13 @@ if (isset($_GET['edit'])) {
 				</tr>
 			</thead>
 			<tbody>
-				<?php while ($row = mysqli_fetch_array($results)) { ?>
+				<?php while ($row = mysqli_fetch_array($results)) { //retourner les resultats de la requete?>
 					<tr>
 						<td><?php echo $row['marque']; ?></td>
 						<td><?php echo $row['model']; ?></td>
-                        <td><?php echo $row['nomv']; ?></td>
 						<td><?php echo $row['dispo_debut']; ?></td>
 						<td><?php echo $row['dispo_fin']; ?></td>
 						<td><?php echo $row['prixj']; ?></td>
-                        <td><?php echo $row['kilometrage']; ?></td>
 						<td><?php echo $row['couleur']; ?></td>
 						<td><?php echo $row['matricule']; ?></td>
 						<td><?php echo $row['boite_vitesse']; ?></td>
@@ -152,11 +146,9 @@ if (isset($_GET['edit'])) {
 				<tr>
 					<th>marque</th>
 					<th>model</th>
-                    <th>version</th>
 					<th>Dispo_debut</th>
 					<th>Dispo_fin</th>
 					<th>Prix Journalier</th>
-                    <th>kilometrage</th>
 					<th>couleur</th>
 					<th>Matricule</th>
 					<th>boite vitesse</th>
@@ -180,11 +172,6 @@ if (isset($_GET['edit'])) {
 			<label>model</label>
 			<input type="text" name="model" value="<?php echo $model; ?>">
 		</div>
-        
-        <div class="input-group">
-			<label>version</label>
-			<input type="text" name="nomv" value="<?php echo $nomv; ?>">
-		</div>
        
 		<div class="input-group">
 			<label>Dispo_debut</label>
@@ -200,12 +187,6 @@ if (isset($_GET['edit'])) {
 			<label>Prix Journalier</label>
 			<input type="text" name="prixj" value="<?php echo $prixj; ?>">
 		</div>
-        
-        <div class="input-group">
-			<label>Kilometrage</label>
-			<input type="text" name="kilometrage" value="<?php echo $kilometrage; ?>">
-		</div>
-        
         
 		<div class="input-group">
 			<label>couleur</label>
