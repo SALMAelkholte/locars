@@ -16,7 +16,7 @@
         <h1>LOCARS</h1>
         <div class="container">
             <div class="sign-up-content">
-                <form method="POST" class="signup-form" action="Traitement/model.php">
+                <form method="POST" class="signup-form" action="Traitement/model.php" onsubmit="return verifier(this);">
                     <h2 class="form-title">vous êtes professionnel? remplissez ce formulaire! </h2>
 
                     <div class="form-textbox">

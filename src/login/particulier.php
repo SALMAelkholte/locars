@@ -12,17 +12,40 @@
 </head>
 
 <body>
+    
+    <script type="text/javascript">
+function verifier() {
+    var email = document.getElementById('email').value;
+	var pass = document.getElementById('pass').value;
+    if(email=="")
+    {
+         alert('un champ obligatoire doit etre saisi!');
+        document.getElementById('email').focus ;
+        return false;
+             
+    }
+    else if(pass=="")
+    {
+         alert('un champ obligatoire doit etre saisi!');
+        document.getElementById('pass').focus ;
+	return false;
+	}
+	else
+        return true;
+}
+
+</script>
     <div class="main">
 
         <h1>LOCARS</h1>
         <div class="container">
             <div class="sign-up-content">
-                <form method="POST" class="signup-form" action="Traitement/model.php">
+                <form method="POST" class="signup-form" action="Traitement/model.php" onsubmit="return verifier(this);">
                     <h2 class="form-title">vous êtes particulier? remplissez ce formulaire! </h2>
 
                     <div class="form-textbox">
                         <label for="name">Email</label>
-                        <input type="email" name="email" id="name" />
+                        <input type="email" name="email" id="email" />
                     </div>
 
                     <div class="form-textbox">
