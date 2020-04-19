@@ -12,6 +12,28 @@
 </head>
 
 <body>
+    <script type="text/javascript">
+function verifier() {
+    var email = document.getElementById('email').value;
+	var pass = document.getElementById('pass').value;
+    if(email=="")
+    {
+         alert('un champ obligatoire doit etre saisi!');
+        document.getElementById('email').focus ;
+        return false;
+             
+    }
+    else if(pass=="")
+    {
+         alert('un champ obligatoire doit etre saisi!');
+        document.getElementById('pass').focus ;
+	return false;
+	}
+	else
+        return true;
+}
+
+</script>
     <div class="main">
         <h1>LOCARS</h1>
         <div class="container">
@@ -63,7 +85,8 @@
                         <label for="tel">Telephone</label>
                         <input type="number" name="tel" id="tel" />
                     </div>
-            </div>
+            
+        
             <center>
                 <div class="form-group">
                     <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
