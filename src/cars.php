@@ -1,86 +1,85 @@
 <?php
-// session de lutilisatur 
 session_start();
 $nom = $_SESSION['user'];
 if ($nom == null) {
 	header('Location:login/login.php');
 }
-// connexion base de données 
+
 $db = mysqli_connect('localhost', 'root', 'root', 'locars');
 
-//preparation de la requête ( pour la preparation de la requette on initialise les variable a 0)
+//preparation de la requête
 $sql = "SELECT * from voiture ";
 $ville = 0;
 $marque = 0;
 $model = 0;
 $couleur = 0;
 $boite_vitesse = 0;
-$date_debut = 0;
-$date_fin = 0;
+$dispo_debut = 0;
+$dispo_fin = 0;
 $prixj = 0;
 
 //ville
 
-if($_GET['ville'] && $marque==0 && $model ==0 && $couleur==0 && $boite_vitesse==0 && $date_debut==0 && $date_fin==0 && $prixj==0){
-    $ville++; //l'objectif de cette incrementation est de donner a la variable ville une valeur différente de zero =1 : le champs est déja rempli par l'utilisateur 
+if($_GET['ville'] && $marque==0 && $model ==0 && $couleur==0 && $boite_vitesse==0 && $dispo_debut==0 && $dispo_fin==0 && $prixj==0){
+    $ville++;
     $sql = $sql."WHERE ville='".$_GET['ville']."'";
 }
     
 //marque
-if($_GET['marque'] && $ville==0  && $model ==0 && $couleur==0 && $boite_vitesse==0 && $date_debut==0 && $date_fin==0 && $prixj==0){
+if($_GET['marque'] && $ville==0  && $model ==0 && $couleur==0 && $boite_vitesse==0 && $dispo_debut==0 && $dispo_fin==0 && $prixj==0){
         $sql = $sql."WHERE marque='".$_GET['marque']."'";
         $marque++;    
 }
-if(($ville!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $date_debut!=0 || $date_fin!=0 || $prixj!=0) && $_GET['marque']){
-        $sql = $sql." AND marque='".$_GET['marque']."'"; // au cas ou un autre champ est rempli pour pouvoir respecter tout les choix de l'utilisateur 
+if(($ville!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $dispo_debut!=0 || $dispo_fin!=0 || $prixj!=0) && $_GET['marque']){
+        $sql = $sql." AND marque='".$_GET['marque']."'";
         $marque++;
     }
 
 //modele
-if($_GET['model'] && $ville==0 && $marque==0 && $couleur==0 && $boite_vitesse==0 && $date_debut==0 && $date_fin==0 && $prixj==0){
+if($_GET['model'] && $ville==0 && $marque==0 && $couleur==0 && $boite_vitesse==0 && $dispo_debut==0 && $dispo_fin==0 && $prixj==0){
         $sql = $sql."WHERE model='".$_GET['model']."'";
         $model++;
 }
-if(($ville!=0 || $marque!=0 || $couleur!=0 || $boite_vitesse!=0 || $date_debut!=0 || $date_fin!=0 || $prixj!=0)  && $_GET['model']){
-        $sql = $sql." AND model='".$_GET['model']."'"; //same 
+if(($ville!=0 || $marque!=0 || $couleur!=0 || $boite_vitesse!=0 || $dispo_debut!=0 || $dispo_fin!=0 || $prixj!=0)  && $_GET['model']){
+        $sql = $sql." AND model='".$_GET['model']."'";
     }
 /* ---------couleur------------- */
 
-if($_GET['couleur'] && $ville==0 && $marque==0 && $model==0 && $boite_vitesse==0 && $date_debut==0 && $date_fin==0 && $prixj==0){
+if($_GET['couleur'] && $ville==0 && $marque==0 && $model==0 && $boite_vitesse==0 && $dispo_debut==0 && $dispo_fin==0 && $prixj==0){
         $sql = $sql."WHERE couleur='".$_GET['couleur']."'";
         $couleur++;
 }
-if(($ville!=0 || $marque!=0 || $model!=0 || $boite_vitesse!=0 || $date_debut!=0 || $date_fin!=0 || $prixj!=0) && $_GET['couleur']){
+if(($ville!=0 || $marque!=0 || $model!=0 || $boite_vitesse!=0 || $dispo_debut!=0 || $dispo_fin!=0 || $prixj!=0) && $_GET['couleur']){
         $sql = $sql." AND couleur='".$_GET['couleur']."'";
     }
 
-/* ---------boite_vitesse-----------*/
+/* ---------boite_vitesse------------- */
 
-if($_GET['boite_vitesse'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $date_debut==0 && $date_fin==0 && $prixj==0){
+if($_GET['boite_vitesse'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $dispo_debut==0 && $dispo_fin==0 && $prixj==0){
         $sql = $sql."WHERE boite_vitesse='".$_GET['boite_vitesse']."'";
         $boite_vitesse++;
 }
-if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 | $date_debut!=0 || $date_fin!=0 || $prixj!=0 ) && $_GET['boite_vitesse']){
+if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $dispo_debut!=0 || $dispo_fin!=0 || $prixj!=0 ) && $_GET['boite_vitesse']){
         $sql = $sql." AND boite_vitesse='".$_GET['boite_vitesse']."'";
     }
 
-/* ---------date_debut----------- */
+/* ---------dispo_debut------------- */
 
-if($_GET['dispo_debut'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $boite_vitesse==0 && $date_fin==0 && $prixj==0){
-        $sql = $sql."WHERE dispo_debut <= '".$_GET['dispo_debut']."' and '".$_GET['dispo_debut']."' <= dispo_fin"; // on compare avec les disponibilités que l'utilisateur a choisi : le dispo debut de la base de données doit etre plus petit que celui de l'utilisateur a choisi et aussi celui de l'utilisateur doit etre plus petit que la date de fin de la base de données 
-        $date_debut++;
+if($_GET['dispo_debut'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $boite_vitesse==0 && $dispo_fin==0 && $prixj==0){
+        $sql = $sql."WHERE dispo_debut between '".$_GET['dispo_debut']."' and '".$_GET['dispo_fin']."'";
+        $dispo_debut++;
 }
-if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $date_fin!=0 || $prixj!=0) && $_GET['dispo_debut']){
-        $sql = $sql." AND dispo_debut <= '".$_GET['dispo_debut']."' and '".$_GET['dispo_debut']."' <= dispo_fin";
+if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $dispo_fin!=0 || $prixj!=0) && $_GET['dispo_debut']){
+         $sql = $sql."AND dispo_debut between '".$_GET['dispo_debut']."' and '".$_GET['dispo_fin']."'";
     }
-/* ---------date_fin------------- */
+/* ---------dispo_fin------------- */
 
-if($_GET['dispo_fin'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $boite_vitesse==0 && $date_debut==0 && $prixj==0){
-        $sql = $sql."WHERE dispo_debut >= '".$_GET['dispo_fin']."' and '".$_GET['dispo_fin']."' <= dispo_fin";
-        $date_fin++;
+if($_GET['dispo_fin'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $boite_vitesse==0 && $dispo_debut==0 && $prixj==0){
+       $sql = $sql."WHERE dispo_debut between '".$_GET['dispo_debut']."' and '".$_GET['dispo_fin']."'";
+        $dispo_fin++;
 }
-if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $date_debut!=0 || $prixj!=0) && $_GET['dispo_fin']){
-        $sql = $sql." AND dispo_debut >= '".$_GET['dispo_fin']."' and '".$_GET['dispo_fin']."' <= dispo_fin";
+if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $dispo_debut!=0 || $prixj!=0) && $_GET['dispo_fin']){
+        $sql = $sql."AND dispo_debut between '".$_GET['dispo_debut']."' and '".$_GET['dispo_fin']."'";
     }
 
 /* ---------prix------------- */
@@ -106,19 +105,18 @@ if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || 
         $prix_min = 200;
         $prix_max = 10000;
     } 
-    //dans cette boucle on donne des valeurs des  prix qu'on avait donné dans la page index dans (option)
+    
 
-if($_GET['prixj'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $boite_vitesse==0 && $date_debut==0 && $date_fin==0){
+if($_GET['prixj'] && $ville==0 && $marque==0 && $model==0 && $couleur==0 && $boite_vitesse==0 && $dispo_debut==0 && $dispo_fin==0){
     
         $sql = $sql."WHERE prixj BETWEEN ".$prix_min." AND ".$prix_max;
         $prixj++;
 }
-if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $date_debut!=0 || $date_fin!=0) && $_GET['prixj']){
+if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || $dispo_debut!=0 || $dispo_fin!=0) && $_GET['prixj']){
         $sql = $sql." AND prixj BETWEEN ".$prix_min." AND ".$prix_max;
     }
 
-
-
+//die ($sql);
 ?>
 
 <!DOCTYPE html>
@@ -210,7 +208,7 @@ if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || 
 		<div class="container">
 			<div class="row d-flex justify-content-center pb-40">
 				<div class="col-md-8 pb-40 header-text">
-					<h1 class="text-center pb-10">Choisir ta voiture Preferée</h1>
+					<h1 class="text-center pb-10">Choisir ta voiture Preferé</h1>
 
 				</div>
 			</div>
@@ -223,7 +221,7 @@ if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || 
 					<div class="col-lg-6 model-left">
 						<div class="title justify-content-between d-flex">
 							<h4 class="mt-20"><?php echo $colonne['marque']; ?></h4>
-							<h2><?php echo $colonne['prixj']; ?><span>/day</span></h2> 
+							<h2><?php echo $colonne['prixj']; ?><span>/day</span></h2>
 						</div>
 						
 						<p>
@@ -232,7 +230,7 @@ if(($ville!=0 || $marque!=0 || $model!=0 || $couleur!=0 || $boite_vitesse!=0 || 
 							couleur : <?php echo $colonne['couleur']; ?><br>
 							model: <?php echo $colonne['model']; ?> <br>
                             Kilometrage: <?php echo $colonne['kilometrage']; ?> <br>
-                            ville: <?php echo $colonne['ville']; ?> <br>  
+                            ville: <?php echo $colonne['ville']; ?> <br>
 							
 						</p>
 						<a class="text-uppercase primary-btn" href="reserver.php">Reserver</a>

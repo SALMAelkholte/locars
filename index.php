@@ -1,11 +1,9 @@
 <?php
-//session pour le user
 session_start();
 $nom = $_SESSION['user'];
 if ($nom == null) {
 	header('Location:src/login/login.php');
 }
-// connexion base de données
 $db = mysqli_connect('localhost', 'root', 'root', 'locars');
 ?>
 
@@ -75,7 +73,7 @@ $db = mysqli_connect('localhost', 'root', 'root', 'locars');
 				</div>
 				<div class="col-lg-5  col-md-6 header-right">
 
-					<form class="form" role="form" action="src/cars.php" method="get" autocomplete="off"> <!-- pour nous envoyer a la page resultat recherche  -->
+					<form class="form" role="form" action="src/cars.php" method="get" autocomplete="off">
 
 						<div class="from-group">
                             <div class="default-select" id="default-select">
@@ -83,10 +81,10 @@ $db = mysqli_connect('localhost', 'root', 'root', 'locars');
 									
 								<option value="">ville</option>
                             <?php
-                           $sql = "SELECT DISTINCT ville FROM voiture"; // sans redondance  
+                           $sql = "SELECT DISTINCT ville FROM voiture";
                             $result = mysqli_query($db, $sql);
                             while($colonne = mysqli_fetch_array($result)){
-                            ?> <!-- my sql query execute la requette $ ; et pour le while (boucle) tant qu"il se trouve le résultat  -->
+                            ?>
                                 <option value="<?php echo($colonne['ville']); ?>" ><?php echo($colonne['ville']); ?></option> 
                             <?php
                             }
@@ -111,7 +109,7 @@ $db = mysqli_connect('localhost', 'root', 'root', 'locars');
 								<div class="input-group dates-wrap">
                                     
                                     
-									<input id="datepicker" name="dispo_debut" class="dates form-control" id="exampleAmount" placeholder="Debut" type="date" >
+									<input id="datepicker" name="dispo_debut" class="dates form-control" id="exampleAmount"  type="date" >
                                   
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="lnr lnr-calendar-full"></span></span>
